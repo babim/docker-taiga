@@ -1,4 +1,4 @@
-FROM python:3.4.5-alpine
+FROM python:3.6.4-alpine
 MAINTAINER Babim <babim@matmagoc.com>
 
 # Define build arguments: Taiga version
