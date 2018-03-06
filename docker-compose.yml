@@ -1,0 +1,29 @@
+postgres:
+  image: babim/postgresql:alpine
+  environment:
+    - DB_PASS=taiga
+    - DB_USER=taiga
+    - DB_PASS=123456
+
+taiga:
+  image: all
+  ports:
+    - 80:80
+  links:
+    - postgres
+  environment:
+    - TAIGA_HOSTNAME=localhost
+    - TAIGA_DB_HOST=postgres
+    - TAIGA_DB_NAME=taiga
+    - TAIGA_DB_USER=taiga
+    - TAIGA_DB_PASSWORD=123456
+    - TAIGA_PUBLIC_REGISTER_ENABLED=false
+    - TAIGA_BACKEND_DEBUG=false
+    - TAIGA_FRONTEND_DEBUG=false
+    - TAIGA_FEEDBACK_ENABLED=false
+    - TAIGA_DEFAULT_LANGUAGE=en
+    - TAIGA_SSL=false
+    - TAIGA_DEFAULT_THEME=material-design
+    - LDAP_ENABLE=false
+  volumes:
+    - /media/babim/1/taiga-media:/taiga.io/taiga-back/media
