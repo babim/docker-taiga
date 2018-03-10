@@ -122,7 +122,7 @@ RUN apt-get purge -y wget git
 
 # Copy files for startup
 COPY checkdb.py /taiga.io/checkdb.py
-COPY entrypoint.sh /taiga.io/entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 
 # Create a data-directory into which the configuration files will be moved
 RUN mkdir /taiga.io/data
@@ -140,5 +140,5 @@ RUN mkdir /taiga-start && mv /taiga.io /taiga-start && mkdir -p /taiga.io/taiga-
 
 # Startup
 WORKDIR /taiga.io/taiga-back
-ENTRYPOINT ["/taiga.io/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
