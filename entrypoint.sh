@@ -122,4 +122,5 @@ nginx
 
 # Start Taiga backend Django server
 echo "Starting Taiga backend server..."
-exec "$@"
+#exec "$@"
+python manage.py runserver 127.0.0.1:8000
