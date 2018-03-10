@@ -98,7 +98,7 @@ COPY entrypoint.sh /entrypoint.sh
 RUN mkdir /taiga.io/data
 
 ## Prepare start ##
-RUN mkdir /taiga-start && mv /taiga.io /taiga-start && mkdir -p /taiga.io/taiga-back
+RUN mv /taiga.io /taiga-start && mkdir /taiga.io
 
 # Startup
 WORKDIR /taiga.io/taiga-back
