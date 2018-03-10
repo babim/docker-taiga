@@ -137,7 +137,7 @@ RUN apt-get clean && \
 
 ## Prepare start ##
 RUN mv /taiga.io /taiga-start && mkdir -p /taiga.io && \
-	mv /etc/krb5.conf /opt/kerio/ && ln -sf /opt/kerio/krb5.conf /etc/krb5.conf
+    ln -sf /taiga.io/krb5.conf /etc/krb5.conf
 
 # Startup
 VOLUME /taiga.io
