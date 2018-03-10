@@ -136,9 +136,9 @@ RUN apt-get clean && \
     rm -f /etc/dpkg/dpkg.cfg.d/02apt-speedup
 
 ## Prepare start ##
-RUN mkdir /taiga-start && mv /taiga.io /taiga-start && mkdir -p /taiga.io/taiga-back
+RUN mv /taiga.io /taiga-start && mkdir -p /taiga.io
 
 # Startup
-WORKDIR /taiga.io/taiga-back
+#WORKDIR /taiga.io/taiga-back
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
