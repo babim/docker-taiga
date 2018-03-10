@@ -1,10 +1,13 @@
 #!/bin/sh
 
 # Prepare Kerio bin
-if [ -z "`ls /taiga.io --hide='lost+found' --hide='taiga-back'`" ]
+if [ ! -f /taiga.io/manage.py ]
 then
-	cp -R /taiga-start/* /taiga.io
+	cp -R /taiga-start/* /taiga.io/
 fi
+
+# workdir
+cd /taiga.io/taiga-back
 
 # If a backend configuration file is present in /taiga.io/data, delete the default one
 # from inside of the docker image, and create a symlink. Otherwise move the default one
