@@ -118,4 +118,5 @@ fi
 
 # Start Taiga backend Django server
 echo "Starting Taiga backend server..."
-exec "$@"
+#exec "$@"
+python manage.py runserver 0.0.0.0:8000
