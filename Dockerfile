@@ -1,13 +1,20 @@
-FROM python:3.6.4-alpine
+FROM python:3.6.4-jessie
 MAINTAINER Babim <babim@matmagoc.com>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN set -x; \
+    apt-get update \
+    && apt-get install -y --no-install-recommends \
+        locales \
+        gettext \
+        ca-certificates \
+	git wget
+
+RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 
 # Define build arguments: Taiga version
 ARG VERSION=3.1.0
-
-# Install necessary packages
-RUN apk update --no-cache &&\
-    apk add --no-cache ca-certificates wget git postgresql-dev musl-dev gcc jpeg-dev zlib-dev libxml2-dev libxslt-dev libffi-dev &&\
-    update-ca-certificates
 
 # Download taiga.io backend and frontend
 RUN mkdir -p /taiga.io/
@@ -16,6 +23,15 @@ RUN wget https://github.com/taigaio/taiga-back/archive/$VERSION.tar.gz
 RUN tar xzf $VERSION.tar.gz
 RUN ln -sf taiga-back-$VERSION taiga-back
 RUN rm -f $VERSION.tar.gz
+RUN wget https://github.com/taigaio/taiga-front-dist/archive/$VERSION-stable.tar.gz
+RUN tar xzf $VERSION-stable.tar.gz
+RUN ln -sf taiga-front-dist-$VERSION-stable taiga-front
+RUN rm -f $VERSION-stable.tar.gz
+
+# specify LANG to ensure python installs locals properly
+# fixes benhutchins/docker-taiga-example#4
+# ref benhutchins/docker-taiga#15
+ENV LANG C
 
 # Install all required dependencies of the backend (we will check on container startup whether we need
 # to setup the database first)
@@ -23,7 +39,17 @@ WORKDIR /taiga.io/taiga-back-$VERSION
 ENV LIBRARY_PATH=/lib:/usr/lib
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Setup default environmento
+RUN echo "LANG=en_US.UTF-8" > /etc/default/locale
+RUN echo "LC_TYPE=en_US.UTF-8" > /etc/default/locale
+RUN echo "LC_MESSAGES=POSIX" >> /etc/default/locale
+RUN echo "LANGUAGE=en" >> /etc/default/locale
+
+ENV LANG en_US.UTF-8
+ENV LC_TYPE en_US.UTF-8
+ENV LC_MESSAGES POSIX
+ENV LANGUAGE en
+
+# Setup default environment
 ENV TAIGA_SSL "false"
 ENV TAIGA_HOSTNAME "localhost"
 ENV TAIGA_SECRET_KEY `< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-64};echo;`
@@ -79,8 +105,7 @@ RUN mkdir /taiga.io/presets
 COPY local.py /taiga.io/presets/local.py
 
 # Remove all packages that are not required anymore
-RUN apk del gcc wget git musl-dev libxml2-dev
-RUN apk add gettext
+RUN apt-get purge -y wget git
 
 # Copy files for startup
 COPY checkdb.py /taiga.io/checkdb.py
@@ -88,6 +113,14 @@ COPY entrypoint.sh /entrypoint.sh
 
 # Create a data-directory into which the configuration files will be moved
 RUN mkdir /taiga.io/data
+
+RUN apt-get clean && \
+    apt-get autoclean && \
+    apt-get autoremove -y && \
+    rm -rf /build && \
+    rm -rf /tmp/* /var/tmp/* && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -f /etc/dpkg/dpkg.cfg.d/02apt-speedup
 
 ## Prepare start ##
 RUN mv /taiga.io /taiga-start && mkdir -p /taiga.io && \
