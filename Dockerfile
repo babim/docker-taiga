@@ -1,14 +1,30 @@
-#FROM python:3.4.5-alpine
-FROM python:3.6.4-alpine
+FROM python:3.6.4-jessie
 MAINTAINER Babim <babim@matmagoc.com>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+# Version of Nginx to install
+ENV NGINX_VERSION 1.9.7-1~jessie
+
+RUN apt-key adv \
+  --keyserver hkp://pgp.mit.edu:80 \
+  --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+
+RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list
+
+RUN set -x; \
+    apt-get update \
+    && apt-get install -y --no-install-recommends \
+        locales \
+        gettext \
+        ca-certificates \
+        nginx \
+	git wget
+
+RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 
 # Define build arguments: Taiga version
 ARG VERSION=3.1.0
-
-# Install necessary packages
-RUN apk update --no-cache &&\
-    apk add --no-cache ca-certificates wget nginx git postgresql-dev musl-dev gcc jpeg-dev zlib-dev libxml2-dev libxslt-dev libffi-dev &&\
-    update-ca-certificates
 
 # Download taiga.io backend and frontend
 RUN mkdir -p /taiga.io/
@@ -22,11 +38,26 @@ RUN tar xzf $VERSION-stable.tar.gz
 RUN ln -sf taiga-front-dist-$VERSION-stable taiga-front
 RUN rm -f $VERSION-stable.tar.gz
 
+# specify LANG to ensure python installs locals properly
+# fixes benhutchins/docker-taiga-example#4
+# ref benhutchins/docker-taiga#15
+ENV LANG C
+
 # Install all required dependencies of the backend (we will check on container startup whether we need
 # to setup the database first)
 WORKDIR /taiga.io/taiga-back-$VERSION
 ENV LIBRARY_PATH=/lib:/usr/lib
 RUN pip install --no-cache-dir -r requirements.txt
+
+RUN echo "LANG=en_US.UTF-8" > /etc/default/locale
+RUN echo "LC_TYPE=en_US.UTF-8" > /etc/default/locale
+RUN echo "LC_MESSAGES=POSIX" >> /etc/default/locale
+RUN echo "LANGUAGE=en" >> /etc/default/locale
+
+ENV LANG en_US.UTF-8
+ENV LC_TYPE en_US.UTF-8
+ENV LC_MESSAGES POSIX
+ENV LANGUAGE en
 
 # Setup default environment
 ENV TAIGA_SSL "false"
@@ -44,7 +75,7 @@ ENV TAIGA_DEFAULT_LANGUAGE "en"
 ENV TAIGA_DEFAULT_THEME "material-design"
 
 # Active Directory configuration
-RUN apk add --no-cache krb5-dev openldap-dev
+RUN apt-get install -y libkrb5-dev libldap2-dev
 RUN cd /taiga.io && git clone https://github.com/stemid/taiga-contrib-ad-auth && \
     python /taiga.io/taiga-contrib-ad-auth/setup.py install
 ENV AD_ENABLE "false"
@@ -79,8 +110,7 @@ COPY local.py /taiga.io/presets/local.py
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Remove all packages that are not required anymore
-RUN apk del gcc wget git musl-dev libxml2-dev
-RUN apk add gettext
+RUN apt-get purge -y wget git
 
 # Copy files for startup
 COPY checkdb.py /taiga.io/checkdb.py
@@ -88,6 +118,14 @@ COPY entrypoint.sh /taiga.io/entrypoint.sh
 
 # Create a data-directory into which the configuration files will be moved
 RUN mkdir /taiga.io/data
+
+RUN apt-get clean && \
+    apt-get autoclean && \
+    apt-get autoremove -y && \
+    rm -rf /build && \
+    rm -rf /tmp/* /var/tmp/* && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -f /etc/dpkg/dpkg.cfg.d/02apt-speedup
 
 # Startup
 WORKDIR /taiga.io/taiga-back
