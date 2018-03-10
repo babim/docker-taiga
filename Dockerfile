@@ -17,5 +17,6 @@ RUN rm -f $VERSION-stable.tar.gz
 # Setup Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
+VOLUME /taiga.io/taiga-front
 # Define default command.
 CMD ["nginx", "-g", "daemon off;"]
