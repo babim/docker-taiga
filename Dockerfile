@@ -89,7 +89,8 @@ COPY entrypoint.sh /entrypoint.sh
 RUN mkdir /taiga.io/data
 
 ## Prepare start ##
-RUN mkdir /taiga-start && mv /taiga.io /taiga-start && mkdir -p /taiga.io/taiga-back
+RUN mv /taiga.io /taiga-start && mkdir -p /taiga.io && \
+	mv /etc/krb5.conf /opt/kerio/ && ln -sf /opt/kerio/krb5.conf /etc/krb5.conf
 
 # Startup
 VOLUME /taiga.io
