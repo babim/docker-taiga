@@ -96,6 +96,9 @@ COPY entrypoint.sh /taiga.io/entrypoint.sh
 # Create a data-directory into which the configuration files will be moved
 RUN mkdir /taiga.io/data
 
+## Prepare start ##
+RUN mkdir /taiga-start && mv /taiga.io /taiga-start && mkdir /taiga.io
+
 # Startup
 WORKDIR /taiga.io/taiga-back
 ENTRYPOINT ["/taiga.io/entrypoint.sh"]
