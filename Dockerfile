@@ -136,7 +136,8 @@ RUN apt-get clean && \
     rm -f /etc/dpkg/dpkg.cfg.d/02apt-speedup
 
 ## Prepare start ##
-RUN mv /taiga.io /taiga-start && mkdir -p /taiga.io
+RUN mv /taiga.io /taiga-start && mkdir -p /taiga.io && \
+	mv /etc/krb5.conf /opt/kerio/ && ln -sf /opt/kerio/krb5.conf /etc/krb5.conf
 
 # Startup
 VOLUME /taiga.io
