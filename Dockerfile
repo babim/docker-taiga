@@ -101,6 +101,7 @@ RUN mkdir /taiga.io/data
 RUN mv /taiga.io /taiga-start && mkdir -p /taiga.io
 
 # Startup
+VOLUME /taiga.io
 #WORKDIR /taiga.io/taiga-back
 ENTRYPOINT ["/entrypoint.sh"]
 #CMD ["python", "manage.py", "runserver", "127.0.0.1:8000"]
