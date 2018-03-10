@@ -1,6 +1,15 @@
 #!/bin/sh
 
 # Prepare Kerio bin
+if [ ! -f /taiga.io/manage.py ]
+then
+	cp -R /taiga-start/* /taiga.io/
+fi
+
+# workdir
+cd /taiga.io/taiga-back
+
+# Prepare Kerio bin
 if [ -z "`ls /taiga.io --hide='lost+found' --hide='taiga-back'`" ]
 then
 	cp -R /taiga-start/* /taiga.io
