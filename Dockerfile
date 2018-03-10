@@ -38,20 +38,20 @@ ENV TAIGA_FEEDBACK_ENABLED "false"
 ENV TAIGA_DEFAULT_LANGUAGE "en"
 ENV TAIGA_DEFAULT_THEME "material-design"
 
-# Active Directory configuration
-RUN apk add --no-cache krb5-dev openldap-dev
-RUN cd /taiga.io && git clone https://github.com/stemid/taiga-contrib-ad-auth && \
-    python /taiga.io/taiga-contrib-ad-auth/setup.py install
-ENV AD_ENABLE "false"
-ENV AD_REALM "DOMAIN.LAN"
-ENV AD_ALLOWED_DOMAINS "ad.domain.lan"
-ENV AD_LDAP_SERVER "ldaps://ad.domain.lan/"
-ENV AD_LDAP_PORT 636
-ENV AD_SEARCH_BASE ""
-ENV AD_EMAIL_PROPERTY "mail"
-ENV AD_SEARCH_FILTER ""
-ENV AD_BIND_DN ""
-ENV AD_BIND_PASSWORD ""
+# # Active Directory configuration
+# RUN apk add --no-cache krb5-dev openldap-dev
+# RUN cd /taiga.io && git clone https://github.com/stemid/taiga-contrib-ad-auth && \
+#     python /taiga.io/taiga-contrib-ad-auth/setup.py install
+# ENV AD_ENABLE "false"
+# ENV AD_REALM "DOMAIN.LAN"
+# ENV AD_ALLOWED_DOMAINS "ad.domain.lan"
+# ENV AD_LDAP_SERVER "ldaps://ad.domain.lan/"
+# ENV AD_LDAP_PORT 636
+# ENV AD_SEARCH_BASE ""
+# ENV AD_EMAIL_PROPERTY "mail"
+# ENV AD_SEARCH_FILTER ""
+# ENV AD_BIND_DN ""
+# ENV AD_BIND_PASSWORD ""
 
 # LDAP configuration
 RUN pip install taiga-contrib-ldap-auth
