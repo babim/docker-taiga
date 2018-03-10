@@ -74,34 +74,6 @@ ENV TAIGA_FEEDBACK_ENABLED "false"
 ENV TAIGA_DEFAULT_LANGUAGE "en"
 ENV TAIGA_DEFAULT_THEME "material-design"
 
-# Active Directory configuration
-RUN apt-get install -y libkrb5-dev libldap2-dev
-RUN cd /taiga.io && git clone https://github.com/stemid/taiga-contrib-ad-auth && \
-    python /taiga.io/taiga-contrib-ad-auth/setup.py install
-ENV AD_ENABLE "false"
-ENV AD_REALM "MYDOMAIN.LOCAL"
-ENV AD_ALLOWED_DOMAINS "ad.domain.lan"
-ENV AD_LDAP_SERVER "ldaps://ad.domain.lan/"
-ENV AD_LDAP_PORT 636
-#ENV AD_SEARCH_BASE "ou=Company,dc=ad,dc=lan"
-ENV AD_SEARCH_BASE ""
-ENV AD_EMAIL_PROPERTY "mail"
-ENV AD_SEARCH_FILTER ""
-ENV AD_BIND_DN ""
-ENV AD_BIND_PASSWORD ""
-
-# LDAP configuration
-RUN pip install taiga-contrib-ldap-auth
-ENV LDAP_ENABLE "false"
-ENV LDAP_SERVER ""
-ENV LDAP_PORT 389
-ENV LDAP_BIND_DN ""
-ENV LDAP_BIND_PASSWORD ""
-ENV LDAP_SEARCH_BASE ""
-ENV LDAP_SEARCH_PROPERTY "sAMAccountName"
-ENV LDAP_EMAIL_PROPERTY = 'mail'
-ENV LDAP_FULL_NAME_PROPERTY = 'displayName'
-
 RUN python manage.py collectstatic --noinput
 RUN mkdir /taiga.io/presets
 COPY local.py /taiga.io/presets/local.py
@@ -129,5 +101,5 @@ RUN apt-get clean && \
 
 # Startup
 WORKDIR /taiga.io/taiga-back
-ENTRYPOINT ["/taiga.io/entrypoint.sh"]
-CMD ["python", "manage.py", "runserver", "127.0.0.1:8000"]
+#ENTRYPOINT ["/taiga.io/entrypoint.sh"]
+CMD ["top"]

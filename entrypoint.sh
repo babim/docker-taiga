@@ -64,6 +64,19 @@ elif [ -f /taiga.io/taiga-front/dist/conf.example.json ]; then
     sed -i "s/\"tribeHost\": null/\"tribeHost\": null, \"loginFormType\": \"ldap\"/g" /taiga.io/data/conf.json
   fi
 
+  # Enable AD if enabled
+  export AD_ENABLE_LOWERCASE=$(echo "$AD_ENABLE" | tr '[:upper:]' '[:lower:]')
+  if [ "$AD_ENABLE_LOWERCASE" = "true" ]; then
+    sed -i "s/\"tribeHost\": null/\"tribeHost\": null, \"loginFormType\": \"ad\"/g" /taiga.io/data/conf.json
+  fi
+
+  # Enable Kerberos if enabled
+  export KRB5_ENABLE_LOWERCASE=$(echo "$KRB5_ENABLE" | tr '[:upper:]' '[:lower:]')
+  if [ "$KRB5_ENABLE_LOWERCASE" = "true" ]; then
+    sed -i "s/\"tribeHost\": null/\"tribeHost\": null, \"loginFormType\": \"kerberos\"/g" /taiga.io/data/conf.json
+  fi
+
+
 fi
 
 # Finally, create a symlink from conf.json in the volume directory to the dist/ directory.
