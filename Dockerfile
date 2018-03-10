@@ -70,7 +70,7 @@ ENV LDAP_EMAIL_PROPERTY = 'mail'
 ENV LDAP_FULL_NAME_PROPERTY = 'displayName'
 
 # Kerberos configuration
-apk add --no-cache krb5-dev
+RUN apk add --no-cache krb5-dev
 RUN pip install taiga-contrib-kerberos-auth
 ENV KRB5_ENABLE "false"
 ENV KRB5_REALM "MYDOMAIN.LOCAL"
