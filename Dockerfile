@@ -16,6 +16,10 @@ RUN wget https://github.com/taigaio/taiga-back/archive/$VERSION.tar.gz
 RUN tar xzf $VERSION.tar.gz
 RUN ln -sf taiga-back-$VERSION taiga-back
 RUN rm -f $VERSION.tar.gz
+RUN wget https://github.com/taigaio/taiga-front-dist/archive/$VERSION-stable.tar.gz
+RUN tar xzf $VERSION-stable.tar.gz
+RUN ln -sf taiga-front-dist-$VERSION-stable taiga-front
+RUN rm -f $VERSION-stable.tar.gz
 
 # Install all required dependencies of the backend (we will check on container startup whether we need
 # to setup the database first)
