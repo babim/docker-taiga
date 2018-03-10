@@ -71,14 +71,6 @@ ENV LDAP_SEARCH_PROPERTY "sAMAccountName"
 ENV LDAP_EMAIL_PROPERTY = 'mail'
 ENV LDAP_FULL_NAME_PROPERTY = 'displayName'
 
-# Kerberos configuration
-RUN apk add --no-cache krb5-dev
-RUN pip install taiga-contrib-kerberos-auth
-ENV KRB5_ENABLE "false"
-ENV KRB5_REALM "MYDOMAIN.LOCAL"
-ENV KRB5_DOMAINS "ad.mydomain.local"
-ENV KRB5_DEFAULT_DOMAIN ""
-
 RUN python manage.py collectstatic --noinput
 RUN mkdir /taiga.io/presets
 COPY local.py /taiga.io/presets/local.py
@@ -98,9 +90,9 @@ COPY entrypoint.sh /entrypoint.sh
 RUN mkdir /taiga.io/data
 
 ## Prepare start ##
-RUN mv /taiga.io /taiga-start && mkdir /taiga.io
+RUN mv /taiga.io /taiga-start && mkdir -p /taiga.io
 
 # Startup
-WORKDIR /taiga.io/taiga-back
+#WORKDIR /taiga.io/taiga-back
 ENTRYPOINT ["/entrypoint.sh"]
 #CMD ["python", "manage.py", "runserver", "127.0.0.1:8000"]

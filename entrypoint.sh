@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# Prepare Kerio bin
+if [ ! -f /taiga.io/manage.py ]
+then
+	cp -R /taiga-start/* /taiga.io/
+fi
+
+# workdir
+cd /taiga.io/taiga-back
+
 # If a backend configuration file is present in /taiga.io/data, delete the default one
 # from inside of the docker image, and create a symlink. Otherwise move the default one
 # into /taiga.io/data and symlink to it as well.
@@ -116,4 +125,5 @@ nginx
 
 # Start Taiga backend Django server
 echo "Starting Taiga backend server..."
-exec "$@"
+#exec "$@"
+python manage.py runserver 127.0.0.1:8000
