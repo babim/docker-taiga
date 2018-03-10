@@ -69,6 +69,7 @@ ENV AD_BIND_PASSWORD ""
 # Kerberos configuration
 RUN apt-get install -y libkrb5-dev
 RUN pip install taiga-contrib-kerberos-auth
+ENV KRB5_ENABLE "false"
 ENV KRB5_REALM "MYDOMAIN.LOCAL"
 ENV KRB5_DOMAINS "ad.mydomain.local"
 ENV KRB5_DEFAULT_DOMAIN ""
