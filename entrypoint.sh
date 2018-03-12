@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Prepare Kerio bin
-if [ ! -f /taiga.io/manage.py ]
+if [ ! -f /taiga.io/checkdb.py ]
 then
 	cp -R /taiga-start/* /taiga.io/
 fi
