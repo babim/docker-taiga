@@ -68,7 +68,7 @@ if os.getenv('AD_ENABLE').lower() == 'true':
     # Names of LDAP properties on user account to get email and full name
     AD_EMAIL_PROPERTY = os.getenv('AD_EMAIL_PROPERTY')
 
-# Configure AD LDAP backend (if enabled)
+# Configure KRB5 LDAP backend (if enabled)
 if os.getenv('KRB5_ENABLE').lower() == 'true':
     INSTALLED_APPS += ["taiga_contrib_kerberos_auth"]
     KRB5_REALM = os.getenv('KRB5_REALM')
