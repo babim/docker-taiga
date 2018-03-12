@@ -124,6 +124,7 @@ RUN apt-get purge -y wget git
 
 # Copy files for startup
 COPY checkdb.py /taiga.io/checkdb.py
+COPY krb5.conf /taiga.io/krb5.conf
 COPY entrypoint.sh /entrypoint.sh
 
 # Create a data-directory into which the configuration files will be moved
