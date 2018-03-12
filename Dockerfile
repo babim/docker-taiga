@@ -73,8 +73,8 @@ ENV LDAP_BIND_DN ""
 ENV LDAP_BIND_PASSWORD ""
 ENV LDAP_SEARCH_BASE ""
 ENV LDAP_SEARCH_PROPERTY "sAMAccountName"
-ENV LDAP_EMAIL_PROPERTY = 'mail'
-ENV LDAP_FULL_NAME_PROPERTY = 'displayName'
+ENV LDAP_EMAIL_PROPERTY 'mail'
+ENV LDAP_FULL_NAME_PROPERTY 'displayName'
 
 # Active Directory configuration
 RUN apt-get install -y libkrb5-dev libldap2-dev
