@@ -76,7 +76,7 @@ RUN apk add --no-cache krb5-dev
 RUN pip install taiga-contrib-kerberos-auth
 ENV KRB5_ENABLE "false"
 ENV KRB5_REALM "MYDOMAIN.LOCAL"
-ENV KRB5_DOMAINS "ad.mydomain.local"
+ENV KRB5_DOMAINS "mydomain.local"
 ENV KRB5_DEFAULT_DOMAIN ""
 
 RUN python manage.py collectstatic --noinput
