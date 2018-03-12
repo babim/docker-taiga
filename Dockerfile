@@ -141,6 +141,10 @@ RUN mv /taiga.io /taiga-start && mkdir -p /taiga.io && \
 
 # Startup
 VOLUME /taiga.io
+
+# Expose ports.
+EXPOSE 80 443 8000
+
 #WORKDIR /taiga.io/taiga-back
 ENTRYPOINT ["/entrypoint.sh"]
 #CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
