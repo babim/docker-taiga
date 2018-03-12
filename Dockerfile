@@ -17,6 +17,9 @@ RUN rm -f $VERSION-stable.tar.gz
 # Setup Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
+# Expose ports.
+EXPOSE 80 443
+
 VOLUME /taiga.io/taiga-front
 # Define default command.
 CMD ["nginx", "-g", "daemon off;"]
