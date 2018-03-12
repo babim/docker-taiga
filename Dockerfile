@@ -25,7 +25,7 @@ RUN rm -f $VERSION-stable.tar.gz
 
 # Install all required dependencies of the backend (we will check on container startup whether we need
 # to setup the database first)
-WORKDIR /taiga.io/taiga-back-$VERSION
+WORKDIR /taiga.io/taiga-back
 ENV LIBRARY_PATH=/lib:/usr/lib
 RUN pip install --no-cache-dir -r requirements.txt
 
