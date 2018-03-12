@@ -59,7 +59,7 @@ postgres:
     - DB_USER=taiga
     - DB_PASS=taiga123
   volumes:
-    - taiga-db:/var/lib/postgresql/data
+    - taiga-db:/var/lib/postgresql
 
 taiga:
   image: babim/taiga:all
@@ -83,6 +83,7 @@ taiga:
     - TAIGA_DEFAULT_THEME=material-design
     - LDAP_ENABLE=false
     - AD_ENABLE=false
+    - KRB5_ENABLE=false
   volumes:
     - taiga-media:/taiga.io/taiga-back/media
 ```
