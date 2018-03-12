@@ -1,10 +1,24 @@
-FROM babim/alpinebase
+FROM python:3.6.4-jessie
+MAINTAINER Babim <babim@matmagoc.com>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+# Version of Nginx to install
+ENV NGINX_VERSION 1.9.7-1~jessie
+
+RUN apt-key adv \
+  --keyserver hkp://keyserver.ubuntu.com:80 \
+  --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+
+RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list
+
+RUN set -x; \
+    apt-get update \
+    && apt-get install -y --no-install-recommends \
+    nginx ca-certificates wget
 
 # Define build arguments: Taiga version
 ARG VERSION=3.1.0
-
-# Install necessary packages
-RUN apk add --no-cache nginx ca-certificates wget
 
 # Download taiga.io backend and frontend
 RUN mkdir -p /taiga.io/
