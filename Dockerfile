@@ -11,7 +11,8 @@ RUN mkdir -p /taiga.io/
 WORKDIR /taiga.io
 RUN wget https://github.com/taigaio/taiga-front-dist/archive/$VERSION-stable.tar.gz
 RUN tar xzf $VERSION-stable.tar.gz
-RUN ln -sf taiga-front-dist-$VERSION-stable taiga-front
+RUN mv taiga-front-dist-$VERSION-stable taiga-front
+#RUN ln -sf taiga-front-dist-$VERSION-stable taiga-front
 RUN rm -f $VERSION-stable.tar.gz
 
 # Setup Nginx
