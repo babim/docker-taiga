@@ -45,21 +45,21 @@ ENV TAIGA_FEEDBACK_ENABLED "false"
 ENV TAIGA_DEFAULT_LANGUAGE "en"
 ENV TAIGA_DEFAULT_THEME "material-design"
 
-# # Active Directory configuration
-# RUN apk add --no-cache krb5-dev openldap-dev
-# RUN cd /taiga.io && git clone https://github.com/stemid/taiga-contrib-ad-auth && \
-#     python /taiga.io/taiga-contrib-ad-auth/setup.py install
-ENV AD_ENABLE "false"
-ENV AD_REALM "MYDOMAIN.LOCAL"
-ENV AD_ALLOWED_DOMAINS "ad.domain.lan"
-ENV AD_LDAP_SERVER "ldaps://ad.domain.lan/"
-ENV AD_LDAP_PORT 636
-#ENV AD_SEARCH_BASE "ou=Company,dc=ad,dc=lan"
-ENV AD_SEARCH_BASE ""
-ENV AD_EMAIL_PROPERTY "mail"
-ENV AD_SEARCH_FILTER ""
-ENV AD_BIND_DN ""
-ENV AD_BIND_PASSWORD ""
+# # # Active Directory configuration
+# # RUN apk add --no-cache krb5-dev openldap-dev
+# # RUN cd /taiga.io && git clone https://github.com/stemid/taiga-contrib-ad-auth && \
+# #     python /taiga.io/taiga-contrib-ad-auth/setup.py install
+# ENV AD_ENABLE "false"
+# ENV AD_REALM "MYDOMAIN.LOCAL"
+# ENV AD_ALLOWED_DOMAINS "ad.domain.lan"
+# ENV AD_LDAP_SERVER "ldaps://ad.domain.lan/"
+# ENV AD_LDAP_PORT 636
+# #ENV AD_SEARCH_BASE "ou=Company,dc=ad,dc=lan"
+# ENV AD_SEARCH_BASE ""
+# ENV AD_EMAIL_PROPERTY "mail"
+# ENV AD_SEARCH_FILTER ""
+# ENV AD_BIND_DN ""
+# ENV AD_BIND_PASSWORD ""
 
 # LDAP configuration
 RUN pip install taiga-contrib-ldap-auth
@@ -73,13 +73,13 @@ ENV LDAP_SEARCH_PROPERTY "sAMAccountName"
 ENV LDAP_EMAIL_PROPERTY 'mail'
 ENV LDAP_FULL_NAME_PROPERTY 'displayName'
 
-# Kerberos configuration
-RUN apk add --no-cache krb5-dev
-RUN pip install taiga-contrib-kerberos-auth
-ENV KRB5_ENABLE "false"
-ENV KRB5_REALM "MYDOMAIN.LOCAL"
-ENV KRB5_DOMAINS "mydomain.local"
-ENV KRB5_DEFAULT_DOMAIN ""
+# # Kerberos configuration
+# RUN apk add --no-cache krb5-dev
+# RUN pip install taiga-contrib-kerberos-auth
+# ENV KRB5_ENABLE "false"
+# ENV KRB5_REALM "MYDOMAIN.LOCAL"
+# ENV KRB5_DOMAINS "mydomain.local"
+# ENV KRB5_DEFAULT_DOMAIN ""
 
 RUN python manage.py collectstatic --noinput
 RUN mkdir /taiga.io/presets
