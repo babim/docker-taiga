@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Prepare Kerio bin
+# Prepare taiga.io
 if [ ! -f /taiga.io/checkdb.py ]
 then
 	cp -R /taiga-start/* /taiga.io/
