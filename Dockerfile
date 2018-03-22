@@ -55,41 +55,41 @@ ENV EMAIL_PORT 587
 #ENV EMAIL_HOST_PASSWORD 'yourpassword'
 #EMAIL_USE_SSL = True
 
-# Active Directory configuration
-RUN apk add --no-cache krb5-dev openldap-dev musl-dev gcc
-RUN cd /taiga.io && git clone https://github.com/stemid/taiga-contrib-ad-auth && \
-    python /taiga.io/taiga-contrib-ad-auth/setup.py install
+# # Active Directory configuration
+# RUN apk add --no-cache krb5-dev openldap-dev musl-dev gcc
+# RUN cd /taiga.io && git clone https://github.com/stemid/taiga-contrib-ad-auth && \
+#     python /taiga.io/taiga-contrib-ad-auth/setup.py install
 ENV AD_ENABLE "false"
-ENV AD_REALM "MYDOMAIN.LOCAL"
-ENV AD_ALLOWED_DOMAINS ['mydomain.local']
-ENV AD_LDAP_SERVER "ldaps://ad.mydomain.local/"
-ENV AD_LDAP_PORT 636
-#ENV AD_SEARCH_BASE "ou=Company,dc=ad,dc=lan"
-ENV AD_SEARCH_BASE ""
-ENV AD_EMAIL_PROPERTY "mail"
-ENV AD_SEARCH_FILTER ""
-ENV AD_BIND_DN ""
-ENV AD_BIND_PASSWORD ""
+# ENV AD_REALM "MYDOMAIN.LOCAL"
+# ENV AD_ALLOWED_DOMAINS ['mydomain.local']
+# ENV AD_LDAP_SERVER "ldaps://ad.mydomain.local/"
+# ENV AD_LDAP_PORT 636
+# #ENV AD_SEARCH_BASE "ou=Company,dc=ad,dc=lan"
+# ENV AD_SEARCH_BASE ""
+# ENV AD_EMAIL_PROPERTY "mail"
+# ENV AD_SEARCH_FILTER ""
+# ENV AD_BIND_DN ""
+# ENV AD_BIND_PASSWORD ""
 
-# LDAP configuration
-RUN pip install taiga-contrib-ldap-auth
+# # LDAP configuration
+# RUN pip install taiga-contrib-ldap-auth
 ENV LDAP_ENABLE "false"
-ENV LDAP_SERVER ""
-ENV LDAP_PORT 389
-ENV LDAP_BIND_DN ""
-ENV LDAP_BIND_PASSWORD ""
-ENV LDAP_SEARCH_BASE ""
-ENV LDAP_SEARCH_PROPERTY "sAMAccountName"
-ENV LDAP_EMAIL_PROPERTY 'mail'
-ENV LDAP_FULL_NAME_PROPERTY 'displayName'
+# ENV LDAP_SERVER ""
+# ENV LDAP_PORT 389
+# ENV LDAP_BIND_DN ""
+# ENV LDAP_BIND_PASSWORD ""
+# ENV LDAP_SEARCH_BASE ""
+# ENV LDAP_SEARCH_PROPERTY "sAMAccountName"
+# ENV LDAP_EMAIL_PROPERTY 'mail'
+# ENV LDAP_FULL_NAME_PROPERTY 'displayName'
 
-# # Kerberos configuration
-RUN apk add --no-cache krb5-dev
-RUN pip install taiga-contrib-kerberos-auth
+# # # Kerberos configuration
+# RUN apk add --no-cache krb5-dev
+# RUN pip install taiga-contrib-kerberos-auth
 ENV KRB5_ENABLE "false"
-ENV KRB5_REALM "MYDOMAIN.LOCAL"
-ENV KRB5_DOMAINS "mydomain.local"
-ENV KRB5_DEFAULT_DOMAIN ""
+# ENV KRB5_REALM "MYDOMAIN.LOCAL"
+# ENV KRB5_DOMAINS "mydomain.local"
+# ENV KRB5_DEFAULT_DOMAIN ""
 
 RUN python manage.py collectstatic --noinput
 RUN mkdir /taiga.io/presets
