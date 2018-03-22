@@ -53,6 +53,8 @@ ENV EMAIL_PORT 587
 #ENV EMAIL_HOST_USER 'yourusername@gmail.com'
 #ENV EMAIL_HOST_PASSWORD 'yourpassword'
 #EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = "no-reply@taiga.mysite.com"
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # # Active Directory configuration
 # RUN apk add --no-cache krb5-dev openldap-dev musl-dev gcc
