@@ -1,10 +1,7 @@
 #!/bin/sh
 
 # Prepare taiga.io
-if [ ! -f /taiga.io/checkdb.py ]
-then
-	cp -R /taiga-start/* /taiga.io/
-fi
+if [ ! -f /taiga.io/checkdb.py ]; then	cp -R /taiga-start/* /taiga.io/;fi
 
 # workdir
 cd /taiga.io/taiga-back
