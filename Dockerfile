@@ -75,6 +75,8 @@ ENV EMAIL_PORT 587
 #ENV EMAIL_HOST_USER 'yourusername@gmail.com'
 #ENV EMAIL_HOST_PASSWORD 'yourpassword'
 #EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = "no-reply@taiga.mysite.com"
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # # LDAP configuration
 # RUN pip install taiga-contrib-ldap-auth
