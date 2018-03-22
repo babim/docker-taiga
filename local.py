@@ -33,6 +33,13 @@ PUBLIC_REGISTER_ENABLED = (os.getenv('TAIGA_PUBLIC_REGISTER_ENABLED').lower() ==
 DEBUG = (os.getenv('TAIGA_BACKEND_DEBUG').lower() == 'true')
 TEMPLATE_DEBUG = (os.getenv('TAIGA_BACKEND_DEBUG').lower() == 'true')
 
+# Configure Email SMTP (if enabled)
+if os.getenv('EMAIL_ENABLE').lower() == 'true':
+    EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+    EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+    EMAIL_HOST = os.getenv('EMAIL_HOST')
+    EMAIL_PORT = os.getenv('EMAIL_PORT')
+    
 # Configure LDAP backend (if enabled)
 if os.getenv('LDAP_ENABLE').lower() == 'true':
     INSTALLED_APPS += ["taiga_contrib_ldap_auth"]
