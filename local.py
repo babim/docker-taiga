@@ -37,6 +37,7 @@ TEMPLATE_DEBUG = (os.getenv('TAIGA_BACKEND_DEBUG').lower() == 'true')
 if os.getenv('EMAIL_ENABLE').lower() == 'true':
     EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
     EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+    EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
     EMAIL_HOST = os.getenv('EMAIL_HOST')
     EMAIL_PORT = os.getenv('EMAIL_PORT')
     EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
