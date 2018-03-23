@@ -98,7 +98,8 @@ RUN mkdir /taiga.io/presets
 COPY local.py /taiga.io/presets/local.py
 
 # Setup Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /taiga.io/nginx.conf
+RUN ln -sf /taiga.io/nginx.conf /etc/nginx/nginx.conf
 
 # Remove all packages that are not required anymore
 RUN apk del wget git
