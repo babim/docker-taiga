@@ -16,7 +16,8 @@ RUN mv taiga-front-dist-$VERSION-stable taiga-front
 RUN rm -f $VERSION-stable.tar.gz
 
 # Setup Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /taiga.io/nginx.conf
+RUN ln -sf /taiga.io/nginx.conf /etc/nginx/nginx.conf
 
 # Expose ports.
 EXPOSE 80 443
