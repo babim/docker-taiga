@@ -82,9 +82,9 @@ ENV EMAIL_BACKEND 'django.core.mail.backends.smtp.EmailBackend'
 ENV EMAIL_USE_TLS "True"
 ENV EMAIL_HOST 'smtp.gmail.com'
 ENV EMAIL_PORT 587
-#ENV EMAIL_HOST_USER 'yourusername@gmail.com'
-#ENV EMAIL_HOST_PASSWORD 'yourpassword'
-#EMAIL_USE_SSL = True
+ENV EMAIL_HOST_USER 'yourusername@gmail.com'
+ENV EMAIL_HOST_PASSWORD 'yourpassword'
+ENV EMAIL_USE_SSL = "False"
 ENV DEFAULT_FROM_EMAIL "no-reply@taiga.mysite.com"
 ENV SERVER_EMAIL "no-reply@taiga.mysite.com"
 
