@@ -37,26 +37,31 @@ TEMPLATE_DEBUG = (os.getenv('TAIGA_BACKEND_DEBUG').lower() == 'true')
 if os.getenv('EMAIL_ENABLE').lower() == 'true':
     EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
     EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+    EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
     EMAIL_HOST = os.getenv('EMAIL_HOST')
     EMAIL_PORT = os.getenv('EMAIL_PORT')
+    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+	EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+	DEFAULT_FROM_EMAIL = "no-reply@matmagoc.com"
+    SERVER_EMAIL = "no-reply@matmagoc.com"
     
-# Configure LDAP backend (if enabled)
-if os.getenv('LDAP_ENABLE').lower() == 'true':
-    INSTALLED_APPS += ["taiga_contrib_ldap_auth"]
-    LDAP_SERVER = os.getenv('LDAP_SERVER')
-    LDAP_PORT = int(os.getenv('LDAP_PORT'))
-    # Full DN of the service account use to connect to LDAP server and search for login user's account entry
-    # If LDAP_BIND_DN is not specified, or is blank, then an anonymous bind is attempated
-    LDAP_BIND_DN = os.getenv('LDAP_BIND_DN')
-    LDAP_BIND_PASSWORD = os.getenv('LDAP_BIND_PASSWORD')
-    # Starting point within LDAP structure to search for login user
-    LDAP_SEARCH_BASE = os.getenv('LDAP_SEARCH_BASE')
-    # LDAP property used for searching, ie. login username needs to match value in sAMAccountName property in LDAP
-    LDAP_SEARCH_PROPERTY = os.getenv('LDAP_SEARCH_PROPERTY')
-    LDAP_SEARCH_SUFFIX = None
-    # Names of LDAP properties on user account to get email and full name
-    LDAP_EMAIL_PROPERTY = os.getenv('LDAP_EMAIL_PROPERTY')
-    LDAP_FULL_NAME_PROPERTY = os.getenv('LDAP_FULL_NAME_PROPERTY')
+# # Configure LDAP backend (if enabled)
+# if os.getenv('LDAP_ENABLE').lower() == 'true':
+#     INSTALLED_APPS += ["taiga_contrib_ldap_auth"]
+#     LDAP_SERVER = os.getenv('LDAP_SERVER')
+#     LDAP_PORT = int(os.getenv('LDAP_PORT'))
+#     # Full DN of the service account use to connect to LDAP server and search for login user's account entry
+#     # If LDAP_BIND_DN is not specified, or is blank, then an anonymous bind is attempated
+#     LDAP_BIND_DN = os.getenv('LDAP_BIND_DN')
+#     LDAP_BIND_PASSWORD = os.getenv('LDAP_BIND_PASSWORD')
+#     # Starting point within LDAP structure to search for login user
+#     LDAP_SEARCH_BASE = os.getenv('LDAP_SEARCH_BASE')
+#     # LDAP property used for searching, ie. login username needs to match value in sAMAccountName property in LDAP
+#     LDAP_SEARCH_PROPERTY = os.getenv('LDAP_SEARCH_PROPERTY')
+#     LDAP_SEARCH_SUFFIX = None
+#     # Names of LDAP properties on user account to get email and full name
+#     LDAP_EMAIL_PROPERTY = os.getenv('LDAP_EMAIL_PROPERTY')
+#     LDAP_FULL_NAME_PROPERTY = os.getenv('LDAP_FULL_NAME_PROPERTY')
 
 # # Configure AD LDAP backend (if enabled)
 # if os.getenv('AD_ENABLE').lower() == 'true':
