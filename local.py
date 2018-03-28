@@ -28,6 +28,7 @@ SECRET_KEY = os.getenv('TAIGA_SECRET_KEY')
 
 # Enable or disable public registration
 PUBLIC_REGISTER_ENABLED = (os.getenv('TAIGA_PUBLIC_REGISTER_ENABLED').lower() == 'true')
+#USER_EMAIL_ALLOWED_DOMAINS = ["mycompany.com", "mycustomer.com"]
 
 # Enable or disable debugging
 DEBUG = (os.getenv('TAIGA_BACKEND_DEBUG').lower() == 'true')
