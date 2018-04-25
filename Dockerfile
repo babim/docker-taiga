@@ -14,7 +14,7 @@ RUN set -x; \
 RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 
 # Define build arguments: Taiga version
-ARG VERSION=3.1.0
+ARG VERSION=3.2.3
 
 # Download taiga.io backend and frontend
 RUN mkdir -p /taiga.io/
