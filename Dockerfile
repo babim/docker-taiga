@@ -1,7 +1,7 @@
 FROM babim/alpinebase
 
 # Define build arguments: Taiga version
-ARG VERSION=3.1.0
+ARG VERSION=3.2.3
 
 # Install necessary packages
 RUN apk add --no-cache nginx ca-certificates wget
