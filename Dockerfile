@@ -2,7 +2,7 @@ FROM python:3.6.4-alpine
 MAINTAINER Babim <babim@matmagoc.com>
 
 # Define build arguments: Taiga version
-ARG VERSION=3.1.0
+ARG VERSION=3.2.3
 
 # Install necessary packages
 RUN apk update --no-cache &&\
