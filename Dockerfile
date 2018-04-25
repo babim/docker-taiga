@@ -18,7 +18,7 @@ RUN set -x; \
     nginx ca-certificates wget
 
 # Define build arguments: Taiga version
-ARG VERSION=3.1.0
+ARG VERSION=3.2.3
 
 # Download taiga.io backend and frontend
 RUN mkdir -p /taiga.io/
